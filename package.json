@@ -1,23 +1,55 @@
 {
   "name": "moodbites",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "electron/main.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "web:build": "expo export --platform web --output-dir dist",
+    "electron:dev": "cross-env ELECTRON_START_URL=http://localhost:8081 electron .",
+    "electron:build:win": "npm run web:build && electron-builder --win --x64"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~5.0.4",
+    "@react-navigation/native": "^7.1.17",
+    "@react-navigation/native-stack": "^7.3.26",
     "expo": "~53.0.22",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
-    "react-native": "0.79.6"
+    "react-dom": "^19.0.0",
+    "react-native": "0.79.6",
+    "react-native-safe-area-context": "^5.6.1",
+    "react-native-screens": "^4.16.0",
+    "react-native-svg": "^15.12.1",
+    "react-native-web": "^0.20.0",
+    "react-native-gesture-handler": "~2.24.0",
+    "@expo/vector-icons": "^14.1.0",
+    "@react-native-async-storage/async-storage": "2.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/react": "~19.0.10",
-    "typescript": "~5.8.3"
+    "typescript": "~5.8.3",
+    "electron": "^31.0.2",
+    "electron-builder": "^24.13.3",
+    "cross-env": "^7.0.3"
+  },
+  "build": {
+    "appId": "com.example.moodbites",
+    "productName": "MoodBites",
+    "files": [
+      "dist/**",
+      "electron/main.js",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": ["nsis"]
+    }
   },
   "private": true
 }
